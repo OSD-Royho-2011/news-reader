@@ -1,0 +1,14 @@
+<section class="blog-list px-3 py-5 p-md-5">
+  <div class="container">
+    <div class="list-news">
+      <% if @news.present? %>
+        <%= render partial: "new", collection: @news, as: :new %>
+      <% else %>
+        Information does not exist
+      <% end %>
+    </div>
+    <nav class="blog-nav load-more  nav nav-justified my-5">
+      <%= render "button" %>
+    </nav>
+  </div>
+</section>

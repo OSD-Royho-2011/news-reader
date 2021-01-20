@@ -1,0 +1,16 @@
+<article class="blog-post px-3 py-5 p-md-5">
+	<div class="container">
+		<header class="blog-post-header">
+			<h2 class="title mb-2"><%= @title %></h2>
+			<div class="meta mb-3">
+				<span class="date"><%= pluralize(@bonus_info[:last_score], 'point') %></span>
+				<span class="time"><%= "by #{@bonus_info[:user]}" %></span>
+				<span class="comment"><a href="#"><%= pluralize(@bonus_info[:comment_number], 'comment') %></a></span>
+			</div>
+		</header>
+		<div class="originUrl" data-originUrl="<%= @url %>"></div>
+		<div class="blog-post-body">
+			<%= raw @news %>
+		</div>
+	</div><!--//container-->
+</article>

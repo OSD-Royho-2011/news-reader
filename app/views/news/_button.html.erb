@@ -1,0 +1,11 @@
+<% if @previous_page.present? && @previous_page > 0 %>
+  <%= link_to(news_index_path(page: @previous_page), class: "nav-link-prev nav-item nav-link rounded-left", remote: true) do %>
+    Previous <i class="icon-button arrow-prev fas fa-long-arrow-alt-left"></i>
+  <% end %>
+<% end %>
+
+<% if view_next_button? @next_page, @news, @total_page %>
+  <%= link_to(news_index_path(page: @next_page), class: "nav-link-prev nav-item nav-link rounded-right", remote: true) do %>
+    Next <i class="icon-button arrow-next fas fa-long-arrow-alt-right"></i>
+  <% end %>
+<% end %>

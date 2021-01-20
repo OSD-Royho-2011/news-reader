@@ -1,0 +1,10 @@
+
+<% flash.each do |key, value| %>
+  <section class="blog-list px-3 py-5 p-md-5">
+    <div class="container">
+      <div class="alert alert-<%= key %>">
+        <%= value unless value.blank? %>
+      </div>
+    </div>
+  </section>
+<% end %>

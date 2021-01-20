@@ -1,0 +1,4 @@
+$( document ).ready(function() {
+  $('.list-news').html("<%= j render partial: 'new', collection: @news, as: :new %>");
+  $('.load-more').html("<%= j render "button" %>");
+});

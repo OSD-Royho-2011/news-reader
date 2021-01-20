@@ -1,0 +1,21 @@
+<% new.deep_symbolize_keys!  %>
+<div class="item mb-5">
+  <div class="media">
+    <%= image_tag new[:detail_data][:image], class: "mr-3 img-fluid post-thumb d-none d-md-flex" %>
+    <div class="media-body">
+      <h3 class="title mb-1">
+        <%= link_to("#{new[:rank]}#{new[:story].fetch(:content, '')}", news_path(id: new[:id], url: new[:story].fetch(:url, ''), title: new[:story].fetch(:content, ''), user: new[:user], last_score: new[:last_score], comment_number: new[:comment_number]), {class: "", target: "_blank"}) %>
+      </h3>
+
+      <div class="meta mb-1">
+        <span class="date"><%= pluralize(new[:last_score], 'point') %></span>
+        <span class="time"><%= "by #{new[:user]}" %></span>
+        <span class="comment"><a href="#"><%= pluralize(new[:comment_number], 'comment') %></a></span>
+      </div>
+      <div class="intro">
+        <%= new[:detail_data][:article_excerpt] %>
+      </div>
+      <%= link_to(raw("Read more &rarr;"), news_path(id: new[:id], url: new[:story].fetch(:url, ''), title: new[:story].fetch(:content, '')), {class: "more-link", target: "_blank"}) %>
+    </div>
+  </div>
+</div>

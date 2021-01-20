@@ -1,0 +1,60 @@
+version: '3'
+services:
+  redis:
+    privileged: true
+    image: 'redis:4.0-alpine'
+    command: redis-server 
+    volumes:
+      - 'redis:/data'
+  web:
+    build: .
+    privileged: true
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/backend
+      - cache:/cache
+    environment:
+      - SPROCKETS_CACHE=/cache
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+  
+  sidekiq:
+    depends_on:
+      - 'redis'
+    build: .
+    ports: 
+      - '6379:6379'
+    command: bundle exec sidekiq -e development
+    volumes:
+      - '.:/backend'
+    env_file:
+      - '.env'
+    expose: 
+      - '6379'
+    links: 
+      - "redis"
+
+  # cable:
+  #   depends_on:
+  #     - 'redis'
+  #   build: .
+  #   command: puma -p 28081
+  #   ports:
+  #     - '28081:28081'
+  #   volumes:
+  #     - '.:/backend'
+  #   env_file:
+  #     - '.env'
+  # jenkins:
+  #   image: 'docker.io/bitnami/jenkins:2-debian-10'
+  #   ports:
+  #     - '80:8080'
+  #     - '443:8443'
+  #     - '50000:50000'
+  #   volumes:
+  #     - 'jenkins_data:/bitnami/jenkins'
+volumes:
+  redis:
+  cache:
